@@ -14,27 +14,13 @@
   secrets.UNITY_EMAIL }}
             UNITY_PASSWORD: ${{
   secrets.UNITY_PASSWORD }}
-        - run: |
-            echo "License file path: ${{
-  steps.activation.outputs.UNITY_LICENSE_
-  FILE }}"
-            ls -la ${{ steps.activation.o
-  utputs.UNITY_LICENSE_FILE }} || echo
-  "File not found at that path"
-            find / -name "*.ulf"
-  2>/dev/null | head -5
-            find / -name "*.x2d"
-  2>/dev/null | head -5
+        - run: find / -name "*.ulf"
+  2>/dev/null | head -10
         - uses:
   actions/upload-artifact@v4
           if: always()
           with:
             name: unity-license
-            path: |
-              ${{ steps.activation.output
-  s.UNITY_LICENSE_FILE }}
-   
-  /root/.local/share/unity3d/Unity/
-              **/*.ulf
-              **/*.x2d
+            path: ${{ steps.activation.ou
+  tputs.UNITY_LICENSE_FILE }}
             if-no-files-found: warn
